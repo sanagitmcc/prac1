@@ -1,0 +1,56 @@
+DEVOPS PRACTICAL 1 — DOCKER
+
+1. INSTALL / CHECK DOCKER
+Install Docker Desktop for Windows.
+
+Open VS Code Terminal / CMD:
+docker --version
+Expected:
+Docker version XX.X.X
+  
+2. CHECK DOCKER
+docker info
+
+3. PULL NGINX IMAGE
+docker pull nginx
+
+4. VIEW DOCKER IMAGES
+docker images
+Expected:
+nginx
+
+5. RUN NGINX CONTAINER
+docker run -d -p 8080:80 nginx
+  
+Open browser:
+http://localhost:8080
+Expected:
+Welcome to nginx!
+
+6. VIEW RUNNING CONTAINERS
+docker ps
+
+7. STOP CONTAINER
+First get the container ID:
+docker ps
+Then:
+docker stop <container-id>
+Example:
+docker stop abc123
+  
+8. FINAL COMMAND FLOW
+docker --version
+       ↓
+docker info
+       ↓
+docker pull nginx
+       ↓
+docker images
+       ↓
+docker run -d -p 8080:80 nginx
+       ↓
+http://localhost:8080
+       ↓
+docker ps
+       ↓
+docker stop <container-id>
