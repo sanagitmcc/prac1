@@ -1,0 +1,111 @@
+1)Depth First Search:
+
+import collections
+
+def dfs(g, n, seen, d):
+    if n not in seen:
+        seen.append(n)
+
+        for i in g[n]:
+            if seen[-1] == d:
+                break
+
+            dfs(g, i, seen, d)
+
+    return seen
+
+
+graph = {
+    'M': ['R', 'Q', 'N'],
+    'N': ['M', 'O', 'Q'],
+    'O': ['N', 'P'],
+    'R': ['M'],
+    'Q': ['M', 'N', 'P'],
+    'P': ['O', 'Q']
+}
+
+print(dfs(graph, 'M', [], 'P'))
+
+Output:
+['M', 'R', 'Q', 'N', 'O', 'P']
+
+
+2)Breadth First Search
+
+import collections
+
+def bfs(graph, root):
+    seen = set([root])
+    queue = collections.deque([root])
+
+    while queue:
+        vertex = queue.popleft()
+        print(vertex)
+
+        for node in graph[vertex]:
+            if node not in seen:
+                seen.add(node)
+                queue.append(node)
+
+
+graph = {
+    'M': ['R', 'Q', 'N'],
+    'N': ['M', 'O', 'Q'],
+    'O': ['N', 'P'],
+    'R': ['M'],
+    'Q': ['M', 'N', 'P'],
+    'P': ['O', 'Q']
+}
+
+bfs(graph, 'M')
+
+Output:
+M
+R
+Q
+N
+P
+O
+
+
+3)All paths from M to P:
+
+def all_paths(graph, start, end):
+    stack = [(start, [start])]
+
+    while stack:
+        vertex, path = stack.pop()
+
+        for neighbour in graph.get(vertex, []):
+            if neighbour in path:
+                continue
+
+            new_path = path + [neighbour]
+
+            if neighbour == end:
+                yield new_path
+            else:
+                stack.append((neighbour, new_path))
+
+
+graph = {
+    'M': ['R', 'Q', 'N'],
+    'N': ['M', 'O', 'Q'],
+    'O': ['N', 'P'],
+    'R': ['M'],
+    'Q': ['M', 'N', 'P'],
+    'P': ['O', 'Q']
+}
+
+
+print("All paths from M to P:")
+
+for path in all_paths(graph, 'M', 'P'):
+    print(" -> ".join(path))
+
+Output:
+All paths from M to P:
+M -> N -> Q -> P
+M -> N -> O -> P
+M -> Q -> P
+M -> Q -> N -> O -> P
